@@ -1,0 +1,2 @@
+module FTablesHelper
+end
