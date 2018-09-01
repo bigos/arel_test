@@ -15,9 +15,6 @@ class FTable < ActiveRecord::Base
     abs2 = Arel.sql(qf2)
     df2l = ft.project(Arel.sql(qf2).minimum)
 
-    byebug
-    1==1
-
     qr = FTable.select(:value)
            .where(df1: ft.project(min1)
                     .where(abs1.eq(df1l)))
