@@ -2,13 +2,18 @@ class FTable < ActiveRecord::Base
 
   def self.queryfy
     ft = arel_table
-    min1 = Arel.sql('min(df1)')
-    abs1 = Arel.sql('abs(df1-1)')
-    df1l = ft.project(Arel.sql('min(abs(df1-1))'))
 
-    min2 = Arel.sql('min(df2)')
-    abs2 = Arel.sql('abs(df2-2)')
-    df2l = ft.project(Arel.sql('min(abs(df2-2))'))
+    sub1 = (ft[:df1]).-(1).to_sql
+    qf1  = "abs#{sub1}"
+    min1 = ft[:df1].minimum.to_sql
+    abs1 = Arel.sql(qf1)
+    df1l = ft.project(Arel.sql(qf1).minimum)
+
+    sub2 = (ft[:df2]).-(2).to_sql
+    qf2  = "abs#{sub2}"
+    min2 = ft[:df2].minimum.to_sql
+    abs2 = Arel.sql(qf2)
+    df2l = ft.project(Arel.sql(qf2).minimum)
 
     byebug
     1==1
